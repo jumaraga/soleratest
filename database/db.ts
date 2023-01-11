@@ -1,12 +1,13 @@
 import { DataSource } from 'typeorm'
+import { envConfig } from '../config';
 
 const dataSource = new DataSource({
     type: 'mysql',
-    host: 'movistardb.cjcmv3tc2pyq.us-east-1.rds.amazonaws.com',
-    port: 3306,
-    password: 'interview123',
-    username: 'interview',
-    database: 'interview_db',
+    host: envConfig.database.host,
+    port: envConfig.database.port,
+    password: envConfig.database.password,
+    username: envConfig.database.username,
+    database: envConfig.database.database,
 });
 async function connectDB() {
     try {
@@ -16,7 +17,10 @@ async function connectDB() {
         console.log(`ERROR: connection fail: ${e}`);
     }
 }
-async function find(){
-return await dataSource.query(/* sql */`SELECT * FROM Users`)
+async function find() {
+    return await dataSource.query(/* sql */`SELECT * FROM Users`)
 }
-export { connectDB, find }
+async function findOne(table: string, where: string) {
+    return (await dataSource.query(/* sql */`SELECT * FROM ${table} where ${where}`))[0];
+}
+export { connectDB, find, findOne }

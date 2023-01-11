@@ -5,7 +5,6 @@ import dotenv from 'dotenv'
 import { connectDB } from '../database/db';
 import helmet from 'helmet';
 // environment variables
-dotenv.config();
 // database connection
 connectDB()
 const app = express();
