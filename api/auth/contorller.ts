@@ -1,5 +1,5 @@
-import { compare, hash } from "bcrypt"
-import { find, findOne } from "../../database/db"
+import { compare } from "bcrypt"
+import { findOne } from "../../database/db"
 
 
 export function Controller() {
@@ -9,8 +9,8 @@ export function Controller() {
             if (!data) return false
             const isEqual = await compare(password, `${data.password}`);
             if (!isEqual) return false
-                return { fullname: data.fullname }
-            
+            return { fullname: data.fullname }
+
         }
         catch (e) {
             throw new Error('[server]: internal server error')
