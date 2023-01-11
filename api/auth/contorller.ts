@@ -4,12 +4,17 @@ import { find, findOne } from "../../database/db"
 
 export function Controller() {
     async function findAndValidad(username: string, password: string) {
-        const data = await findOne('Users', `username = '${username}'`)
-        const isEqual = await compare(password, `asdsad${data.password}`);
-        if(isEqual){
-            return {fullname:data.fullname}
+        try {
+            const data = await findOne('Users', `username = '${username}'`)
+            if (!data) return false
+            const isEqual = await compare(password, `${data.password}`);
+            if (!isEqual) return false
+                return { fullname: data.fullname }
+            
         }
-        return isEqual
+        catch (e) {
+            throw new Error('[server]: internal server error')
+        }
     }
 
     return {
