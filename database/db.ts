@@ -16,4 +16,7 @@ async function connectDB() {
         console.log(`ERROR: connection fail: ${e}`);
     }
 }
-export { connectDB }
+async function find(){
+return await dataSource.query(/* sql */`SELECT * FROM Users`)
+}
+export { connectDB, find }

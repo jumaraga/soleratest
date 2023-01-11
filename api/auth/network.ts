@@ -1,14 +1,15 @@
 import { NextFunction, Request, response, Response, Router } from "express";
+import { Controller } from "./contorller";
 export  const router = Router();
 
-router.get('/',getUser)
-router.post('/',)
+router.get('/',post)
+router.post('/',post)
 function getUser(req:Request,res:Response,next:NextFunction){
-    response.json()
+    res.json()
 }
 
-function post(req:Request,res:Response,next:NextFunction){
+async function post(req:Request,res:Response,next:NextFunction){
     const {username,password} = req.body; 
-    
-    response.send();
+    const data = await Controller().findAndValidad(username,password);
+    res.send({data});
 }

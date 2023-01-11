@@ -3,11 +3,16 @@ import morgan from 'morgan';
 import { router as auth }   from './auth/network'
 import dotenv from 'dotenv'
 import { connectDB } from '../database/db';
+import helmet from 'helmet';
+// environment variables
 dotenv.config();
+// database connection
 connectDB()
 const app = express();
-app.use(json());
+
 app.use(morgan('dev'));
+app.use(json());
+app.use(helmet())
 
 //routes
 
